@@ -1,0 +1,1226 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{DietImprovement}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Using Machine Learning in Hybrid Recommendation System for Diet
+Improvement Based on Health and
+Taste}\label{using-machine-learning-in-hybrid-recommendation-system-for-diet-improvement-based-on-health-and-taste}
+
+    \subsection{Yiren Qu}\label{yiren-qu}
+
+    \subsubsection{Abstract}\label{abstract}
+
+Recommendation systems are used everywhere today, such as for online
+shopping or Netflix videos. The use of these systems necessitates the
+ability to predict the taste of food effectively. In addition, other
+food concerns, such as food safety and nutritional value have become
+more important than before. With these thoughts, a novel diet
+improvement system, which is based on a recommendation system using
+hybrid matrix decomposition and K-nearest neighborhood algorithms, is
+proposed in this paper. The need to minimize the error of prediction in
+terms of taste and obtain a healthier prediction, required the
+evaluation of a combination of different algorithms and also required
+different components of algorithms to be changed to determine the most
+accurate way of improving the diet. The results of an additional
+psychological study on induced motivation were incorporated into the
+system to develop a method to generate a model for each user to enable
+them to make the transition from tasty food to tasty and healthy food.
+The system contributes a new hybrid optimized recommendation system
+based on novel system construction.
+
+    \paragraph{Problem:}\label{problem}
+
+\begin{verbatim}
+Food, similar to online advertisement services, the prediction of the prices of products, and the weather forecast, is one of the most important major components in people’s lives and has become the focus of development of a number of computer applications by that would enable information analysis. Under modern pressure, people seem to lose concern about their own eating. In the near future, personal data of preferred food habits will connect to restaurants, home computers, and mobile devices including cars. People eating at restaurants will receive immediate information containing food recommendations based on their personal health condition and an optimized taste model. In a long term, the recommendation system would enable people to specify their own settings to make their diets healthier and easy to accept by using the induced motivation method, recommending tasty food to give user a buffer time to get used to it.
+\end{verbatim}
+
+\paragraph{Goal:}\label{goal}
+
+\begin{verbatim}
+This system is to find a solution to recommend food that is both healthy and tasty for users with the hope that, in the long term, the diet may become healthier because of the average summation of taste and health by the personal model. Also, this system will be built on the base of a traditional recommendation system. It will also be developed in both time efficiency and accuracy of the prediction.
+\end{verbatim}
+
+    \paragraph{Program Language
+Selection:}\label{program-language-selection}
+
+Python 3
+
+\subparagraph{External Library of
+Python:}\label{external-library-of-python}
+
+\begin{itemize}
+\tightlist
+\item
+  Numpy - For Numeric Calculation and Quick Data Analysis
+\item
+  Pandas(Python Data Analysis Library) - It is a new and great library
+  for big data analysis.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+    \subsubsection{Problem statement}\label{problem-statement}
+
+This system aims to find a solution to recommend food that is both
+healthy and tasty for users with the hope that, in the long term, the
+diet may become healthier because of the average summation of taste and
+health by the personal model. Specifically, assume there are \(N_{u}\)
+users and \$ N\_\{f\}\$ foods, given a set of training data, which is a
+set of triples containing columns: user id, food id, and ratings, define
+the \$ \mathrm{{A}}\emph{\{u,f\} \$ ``user-food matrix'' ``containing''
+only known food ratings and \$B}\{u,f\} \$matrix as:
+
+\[ {\mathrm{A}}_{u,f}=\left[ \begin{array}{ccc}
+{ID}_u & {ID}_f & R_{u,f} \\ 
+\vdots  & \vdots  & \vdots  \end{array}
+\right]\mathrm{\ \ \ \ size\ of\ A\ is\ }\left(3,N_a\right),\ in\ which\ N_a\le N_u\times N_f \]
+
+\[ B_{u,f}=\left( \begin{array}{ccc}
+R_{u1,f1} & \cdots  & R_{u1,fi} \\ 
+\vdots  & \ddots  & \vdots  \\ 
+R_{ui,f1} & \cdots  & R_{ui,f1} \end{array}
+\right)\ \ \ \ size\ of\ B\ is\ \left(N_u,N_f\right) \]
+
+The first task is to predict all the users' ratings on given foods based
+on the training set, in this case the known food ratings set. In this
+problem, each rating is an integer between 1 and 10, representing from
+unlike to like, and the goal is to minimize the root mean square error
+(RMSE) of the results of the testing sets containing unknown ratings of
+food. The training set, error and RMSE, specifically, are defines as:
+\[ S_{Test}=\left(\left[ \begin{array}{cc}
+{ID}_u & {ID}_f \end{array}
+\right],\cdots \right)\ ,\ in\ which\ {ID}_u,{ID}_f\in A_{u,f}\ and\ R_{u,f}\notin A_{u,f} \]
+\[E_{u,f}=R_{u,f}-P_{u,f}\],
+\[ RMSE=\sqrt{\frac{1}{\left|S_{Test}\right|}\sum_{\left(u,f\right)\in S_{Test}}{{E_{u,f}}^2}}
+\] where \$ \{\left\textbar{}S\_\{Test\}\right\textbar{}\} \$ is its
+cardinality, \$ R\_\{u,f\}\$is the true rating, and \(P_{u,f}\) is the
+predicted rating based on the recommendation system. As paper {[}1{]} on
+evaluating recommendation systems argues, RMSE is popular and highly
+accurate in expressing the performance of a recommendation system.
+
+The second task is to generate a health score based on the comparison
+between users' needs in terms of basic nutrition and food nutrition. In
+this problem, each health score is an integer between 1 and 10 and the
+goal is to sort the predicted food rating list after obtaining the
+average summation of the health score and predicted taste score.
+Specifically, define the health score, result score, and recommended
+food list as: \[ L_{{u,P}_f}=\left[ \begin{array}{cc}
+{ID}_f & P_{u,f} \\ 
+\vdots  & \vdots  \end{array}
+\right]\ \ \left(u,f\right)\in \ S_{Test}\ and\ A_{{u,P}_f}\ is\ a\ descending\ sorted\ list\ by\ P_{u,f}\]
+\[H_{u,f}=\sum_{\left(u,f\right)\in }{\frac{h_{f,i}}{h_{u,i}}\times a_i}\ \ \left(u,f\in \ L_{{u,P}_f}\right)\]
+\[L_{u,Result}=\ \left[P_{u,f}\times a_{u,t}+H_{u,f}\times a_{u,h},\cdots \right]\ \left(u,f\right)\in \ S_{Test}
+\] where\$ L\_\{\{u,P\}\emph{f\}\$ is a descending sorted list of tuples
+of predicted food scores, \$h}\{f,i\} \$is the nutritional value of food
+items, \(h_{u,i}\) is the nutritional needs of users, \(a_{u,i}\) is the
+weight of each nutritional component in the weighted summation, and
+\((a_{u,t},a_{u,h})\) are the weights according to the induced
+motivation model controlling combination of tasty and healthy components
+to make users easy to accept.
+
+    \subsubsection{import files}\label{import-files}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}load food csv}
+        \PY{k}{def} \PY{n+nf}{foodcsv}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{foodcsv} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/food.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{)}
+            \PY{k}{return} \PY{n}{foodcsv}
+        \PY{c+c1}{\PYZsh{} load score.csv}
+        \PY{k}{def} \PY{n+nf}{scoredata}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{scorecsv} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/score\PYZus{}mod.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{)}
+            \PY{k}{return} \PY{n}{scorecsv}
+        \PY{k}{def} \PY{n+nf}{scoredata\PYZus{}original}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{scorecsv} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/score.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{)}
+            \PY{k}{return} \PY{n}{scorecsv}
+\end{Verbatim}
+
+    \subsubsection{Show Data set Examples}\label{show-data-set-examples}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{foodcsv}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{calories}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totalcarbs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sodium}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{protein}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{special}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                    name  type  calories  fat  totalcarbs  sodium  protein  \textbackslash{}
+        foodid                                                                      
+        1          Cheese Pizza     1       277   10          36     565       12   
+        3       Pepperoni Pizza     1       285   10          36     640       12   
+        
+               special  
+        foodid          
+        1          veg  
+        3            0  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:}    food\_id  rating  user\_id
+         0        1    3.75      183
+         2        3    3.00      183
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{scoredata\PYZus{}original}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}             1         3    4  5  6  7  8   9  10  11 {\ldots}  48  63  64  60  65  \textbackslash{}
+         183  3.750000  3.000000  3.0  5  3  7  3   8   5   4 {\ldots} NaN NaN NaN NaN NaN   
+         147  9.666667  6.333333  5.5  7  9  3  9 NaN  10 NaN {\ldots} NaN NaN NaN NaN NaN   
+         
+              66  70  69  67  68  
+         183 NaN NaN NaN NaN NaN  
+         147 NaN NaN NaN NaN NaN  
+         
+         [2 rows x 62 columns]
+\end{Verbatim}
+        
+    \subsection{System design}\label{system-design}
+
+    The diet improvement system is divided into three parts: Cloud data
+storage and methods, nearline storage and methods, and local storage and
+methods as depicted in Figure 1.
+
+In the system, all databases containing basic information are saved in
+the Cloud, and specifically, there is a``user-food matrix'' and Food
+Dataset containing basic nutritional values, such as number of calories,
+amount of fat, total amount of carbon dioxides, sodium, and proteins.
+Nearline, according to {[}2{]}, is a way of transiting data between
+Offline and Online. We set up the recommendation system based on a
+hybrid SVD / KNN method and a database of similar user and similar food
+generated by the KNN method. The local data consisting of the users' own
+goal and the induced motivation model generated by the goal are saved
+offline and are recalled when generating the final recommended food
+list. The interaction interface displays all the results received from
+the recommendation system. Figure 1 System Construction
+
+    \subsubsection{K-nearest neighbor (KNN)
+algorithm}\label{k-nearest-neighbor-knn-algorithm}
+
+    \begin{itemize}
+\tightlist
+\item
+  Euclidean Similarity Function
+  \[ sim\left(x,y\right)=\ \frac{1}{1+\sqrt{\sum{{(x-y)}^2}}}\ \ \ \ \ \ (1)\]
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{euclidean}\PY{p}{(}\PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Take two pd.Series objects and return their euclidean \PYZsq{}similarity\PYZsq{}.\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{diff} \PY{o}{=} \PY{n}{s1} \PY{o}{\PYZhy{}} \PY{n}{s2}
+            \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{diff} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Cosine Similarity Function 
+\end{itemize}
+
+\[ sim(x,y) = \frac{(x . y)}{\sqrt{(x . x) (y . y)}} \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{cosine}\PY{p}{(}\PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Take two pd.Series objects and return their cosine similarity.\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s1} \PY{o}{*} \PY{n}{s2}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s1} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s2} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Pearson correlation
+\end{itemize}
+
+\[ sim(x,y) = \frac{(x - \bar x).(y - \bar y)}{\sqrt{(x - \bar x).(x - \bar x) * (y - \bar y)(y - \bar y)}} \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{pearson}\PY{p}{(}\PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Take two pd.Series objects and return a pearson correlation.\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{s1\PYZus{}c} \PY{o}{=} \PY{n}{s1} \PY{o}{\PYZhy{}} \PY{n}{s1}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+            \PY{n}{s2\PYZus{}c} \PY{o}{=} \PY{n}{s2} \PY{o}{\PYZhy{}} \PY{n}{s2}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s1\PYZus{}c} \PY{o}{*} \PY{n}{s2\PYZus{}c}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s1\PYZus{}c} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{s2\PYZus{}c} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{knn}\PY{p}{(}\PY{n}{user\PYZus{}id}\PY{p}{,}\PY{n}{food\PYZus{}id}\PY{p}{)}\PY{p}{:}
+             \PY{n}{scorecsv\PYZus{}mod} \PY{o}{=} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}
+             \PY{n}{all\PYZus{}user\PYZus{}profiles} \PY{o}{=} \PY{n}{scorecsv\PYZus{}mod}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{user\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv\PYZus{}mod}\PY{o}{.}\PY{n}{user\PYZus{}id} \PY{o}{!=} \PY{n}{user\PYZus{}id}
+             \PY{n}{food\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv\PYZus{}mod}\PY{o}{.}\PY{n}{food\PYZus{}id} \PY{o}{==} \PY{n}{food\PYZus{}id}
+             \PY{n}{ratings\PYZus{}by\PYZus{}others} \PY{o}{=} \PY{n}{scorecsv\PYZus{}mod}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}condition} \PY{o}{\PYZam{}} \PY{n}{food\PYZus{}condition}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} pivot table of other user\PYZsq{}s score of one food(I chose the most input food)}
+             \PY{k}{if} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{empty}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{their\PYZus{}ids} \PY{o}{=} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{index}
+             \PY{n}{their\PYZus{}profiles} \PY{o}{=} \PY{n}{all\PYZus{}user\PYZus{}profiles}\PY{p}{[}\PY{n}{their\PYZus{}ids}\PY{p}{]}
+             \PY{n}{user\PYZus{}profile} \PY{o}{=} \PY{n}{all\PYZus{}user\PYZus{}profiles}\PY{p}{[}\PY{n}{user\PYZus{}id}\PY{p}{]}
+             \PY{n}{sims} \PY{o}{=} \PY{n}{their\PYZus{}profiles}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{profile}\PY{p}{:} \PY{n}{pearson}\PY{p}{(}\PY{n}{profile}\PY{p}{,} \PY{n}{user\PYZus{}profile}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} apply cosine function}
+             \PY{n}{sims} \PY{o}{=} \PY{n}{sims}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{sims}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{food\PYZus{}id}\PY{p}{\PYZcb{}}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{sims}\PY{o}{=}\PY{n}{sims}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sims}
+         \PY{k}{def} \PY{n+nf}{knnf}\PY{p}{(}\PY{n}{food\PYZus{}id}\PY{p}{,}\PY{n}{user\PYZus{}id}\PY{p}{)}\PY{p}{:}    \PY{c+c1}{\PYZsh{}K\PYZhy{}food}
+             \PY{n}{scorecsv} \PY{o}{=} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}
+             \PY{n}{all\PYZus{}food\PYZus{}profiles} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{user\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{user\PYZus{}id} \PY{o}{==} \PY{n}{user\PYZus{}id}
+             \PY{n}{food\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{food\PYZus{}id} \PY{o}{!=} \PY{n}{food\PYZus{}id}
+             \PY{n}{ratings\PYZus{}by\PYZus{}others} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}condition} \PY{o}{\PYZam{}} \PY{n}{food\PYZus{}condition}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} using having most input user 183 to generate}
+             \PY{k}{if} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{empty}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{their\PYZus{}ids} \PY{o}{=} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{index}
+            
+             \PY{n}{their\PYZus{}profiles} \PY{o}{=} \PY{n}{all\PYZus{}food\PYZus{}profiles}\PY{p}{[}\PY{n}{their\PYZus{}ids}\PY{p}{]}
+             \PY{n}{food\PYZus{}profile} \PY{o}{=} \PY{n}{all\PYZus{}food\PYZus{}profiles}\PY{p}{[}\PY{n}{food\PYZus{}id}\PY{p}{]}
+             \PY{n}{sims} \PY{o}{=} \PY{n}{their\PYZus{}profiles}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{profile}\PY{p}{:} \PY{n}{pearson}\PY{p}{(}\PY{n}{profile}\PY{p}{,} \PY{n}{food\PYZus{}profile}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{sims} \PY{o}{=} \PY{n}{sims}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{sims}\PY{o}{=}\PY{n}{sims}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}
+             \PY{k}{return} \PY{n}{sims}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{knn}\PY{p}{(}\PY{l+m+mi}{68}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}                 3
+         user\_id          
+         92       0.707107
+         192      0.476190
+         168      0.436436
+         58       0.316640
+         17       0.272772
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{knnf}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{183}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}                 0
+         food\_id          
+         3        0.524233
+         13       0.394883
+         6        0.371358
+         5        0.365304
+         59       0.304019
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{o}{\PYZpc{}}\PY{k}{timeit} \PYZhy{}n10 knn(1,1)
+         \PY{o}{\PYZpc{}}\PY{k}{timeit} \PYZhy{}n10 knnf(1,1)
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 loops, best of 3: 105 ms per loop
+10 loops, best of 3: 22.3 ms per loop
+
+    \end{Verbatim}
+
+    \subsubsection{Pure KNN Method to predict foods'
+scores}\label{pure-knn-method-to-predict-foods-scores}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{class} \PY{n+nc}{CollabEuclideanReco}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Collaborative filtering using a custom sim(u,u\PYZsq{}). \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{k}{def} \PY{n+nf}{learn}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Prepare datastructures for estimation. \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{scorecsv} \PY{o}{=} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{all\PYZus{}user\PYZus{}profiles} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{all\PYZus{}food\PYZus{}profiles} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{estimate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{user\PYZus{}id}\PY{p}{,} \PY{n}{food\PYZus{}id}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Ratings weighted by correlation similarity. \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{scorecsv} \PY{o}{=} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{n}{user\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{user\PYZus{}id} \PY{o}{!=} \PY{n}{user\PYZus{}id}
+                 \PY{n}{food\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{food\PYZus{}id} \PY{o}{==} \PY{n}{food\PYZus{}id}
+                 \PY{n}{ratings\PYZus{}by\PYZus{}others} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}condition} \PY{o}{\PYZam{}} \PY{n}{food\PYZus{}condition}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{empty}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mf}{5.5}
+         
+                 \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{their\PYZus{}ids} \PY{o}{=} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{index}
+                 \PY{n}{their\PYZus{}ratings} \PY{o}{=} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{rating}
+                 \PY{n}{their\PYZus{}profiles} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{all\PYZus{}user\PYZus{}profiles}\PY{p}{[}\PY{n}{their\PYZus{}ids}\PY{p}{]}
+                 \PY{n}{user\PYZus{}profile} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{all\PYZus{}user\PYZus{}profiles}\PY{p}{[}\PY{n}{user\PYZus{}id}\PY{p}{]}
+                 \PY{n}{sims} \PY{o}{=} \PY{n}{their\PYZus{}profiles}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{profile}\PY{p}{:} \PY{n}{pearson}\PY{p}{(}\PY{n}{profile}\PY{p}{,} \PY{n}{user\PYZus{}profile}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{ratings\PYZus{}sims} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sim}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sims}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{their\PYZus{}ratings}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{ratings\PYZus{}sims} \PY{o}{=} \PY{n}{ratings\PYZus{}sims}\PY{p}{[}\PY{n}{ratings\PYZus{}sims}\PY{o}{.}\PY{n}{sim} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         
+                 \PY{k}{if} \PY{n}{ratings\PYZus{}sims}\PY{o}{.}\PY{n}{empty}\PY{p}{:}
+                     \PY{n}{userest} \PY{o}{=} \PY{n}{their\PYZus{}ratings}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{b} \PY{o}{=} \PY{n}{ratings\PYZus{}sims}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                     \PY{n}{b} \PY{o}{=} \PY{n}{b}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}
+                     \PY{n}{userest} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{average}\PY{p}{(}\PY{n}{b}\PY{o}{.}\PY{n}{rating}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{b}\PY{o}{.}\PY{n}{sim}\PY{p}{)}
+         
+                 \PY{n}{user\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{user\PYZus{}id} \PY{o}{==} \PY{n}{user\PYZus{}id}
+                 \PY{n}{food\PYZus{}condition} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{food\PYZus{}id} \PY{o}{!=} \PY{n}{food\PYZus{}id}
+                 \PY{n}{ratings\PYZus{}by\PYZus{}others} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{user\PYZus{}condition} \PY{o}{\PYZam{}} \PY{n}{food\PYZus{}condition}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{empty}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{6}
+         
+                 \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{their\PYZus{}ids} \PY{o}{=} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{index}
+                 \PY{n}{their\PYZus{}ratings} \PY{o}{=} \PY{n}{ratings\PYZus{}by\PYZus{}others}\PY{o}{.}\PY{n}{rating}
+                 \PY{n}{their\PYZus{}profiles} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{all\PYZus{}food\PYZus{}profiles}\PY{p}{[}\PY{n}{their\PYZus{}ids}\PY{p}{]}
+                 \PY{n}{food\PYZus{}profile} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{all\PYZus{}food\PYZus{}profiles}\PY{p}{[}\PY{n}{food\PYZus{}id}\PY{p}{]}
+                 \PY{n}{sims} \PY{o}{=} \PY{n}{their\PYZus{}profiles}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{profile}\PY{p}{:} \PY{n}{pearson}\PY{p}{(}\PY{n}{profile}\PY{p}{,} \PY{n}{food\PYZus{}profile}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{ratings\PYZus{}sims} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sim}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sims}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{their\PYZus{}ratings}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{ratings\PYZus{}sims} \PY{o}{=} \PY{n}{ratings\PYZus{}sims}\PY{p}{[}\PY{n}{ratings\PYZus{}sims}\PY{o}{.}\PY{n}{sim} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{ratings\PYZus{}sims}\PY{o}{.}\PY{n}{empty}\PY{p}{:}
+                     \PY{k}{return} \PY{p}{(}\PY{n}{userest} \PY{o}{+} \PY{n}{their\PYZus{}ratings}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{c} \PY{o}{=} \PY{n}{ratings\PYZus{}sims}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                     \PY{n}{c} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{)}
+                 \PY{k}{return} \PY{p}{(}\PY{n}{userest} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{average}\PY{p}{(}\PY{n}{c}\PY{o}{.}\PY{n}{rating}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{c}\PY{o}{.}\PY{n}{sim}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{rec}\PY{o}{=}\PY{n}{CollabEuclideanReco}\PY{p}{(}\PY{p}{)}
+         \PY{n}{rec}\PY{o}{.}\PY{n}{learn}\PY{p}{(}\PY{p}{)}
+         \PY{n}{rec}\PY{o}{.}\PY{n}{estimate}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 6.9498260677054446
+\end{Verbatim}
+        
+    \subsection{Single value decomposition
+SVD}\label{single-value-decomposition-svd}
+
+    \[Matrix\ B=\left( \begin{array}{ccc}
+R_{u1,f1} & \cdots  & R_{u1,f} \\ 
+\vdots  & \ddots  & \vdots  \\ 
+R_{u,f1} & \cdots  & R_{u,f} \end{array}
+\right)\ \ \ \approx \ \ \left( \begin{array}{cc}
+R_{u1,k1} &  \begin{array}{cc}
+R_{u1,k2} & \cdots  \end{array}
+ \\ 
+ \begin{array}{c}
+R_{u2,k1} \\ 
+\vdots  \end{array}
+ &  \begin{array}{cc}
+ \begin{array}{c}
+R_{u2,k2} \\ 
+\vdots  \end{array}
+ &  \begin{array}{c}
+\cdots  \\ 
+R_{u,k} \end{array}
+ \end{array}
+ \end{array}
+\right)\ \ \times\ \ {\left( \begin{array}{cc}
+R_{k1,f1} &  \begin{array}{cc}
+R_{k1,f2} & \cdots  \end{array}
+ \\ 
+ \begin{array}{c}
+R_{k2,f1} \\ 
+\vdots  \end{array}
+ &  \begin{array}{c}
+ \begin{array}{cc}
+R_{k2,f2} & \cdots  \end{array}
+ \\ 
+ \begin{array}{cc}
+\vdots  & R_{k,f} \end{array}
+ \end{array}
+ \end{array}
+\right)}^{Transpose}
+\]
+
+    \[B = UV^{T}\] \[
+U = \left(
+\begin{array}{ccc}
+ u_{00} & u_{01} & u_{02}  \\
+ u_{10} & u_{11} & u_{12}  \\
+ u_{20} & u_{21} & u_{22}  \\
+ u_{30} & u_{31} & u_{32}  \\  
+ u_{40} & u_{41} & u_{42} \\  
+ u_{50} & u_{51} & u_{52}  \\ 
+ u_{60} & u_{61} & u_{62}  \\
+ u_{70} & u_{71} & u_{72}  \\
+\end{array} 
+\right) \, \text{and } V = \left(
+\begin{array}{cccccccccc}
+ v_{00}  & v_{01} & v_{02} & v_{03} & v_{04} &v_{05} & v_{06} & v_{07} & v_{08} & v_{09} \\
+ v_{10}  & v_{11} & v_{12} & v_{13} & v_{14} &v_{15} & v_{16} & v_{17} & v_{18} & v_{19} \\
+ v_{20}  & v_{01} & v_{02} & v_{23} & v_{24} &v_{25} & v_{26} & v_{07} & v_{28} & v_{29} \\
+\end{array}
+\right)
+\]
+
+    \paragraph{Using KNN model to scale down the input
+array}\label{using-knn-model-to-scale-down-the-input-array}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{def} \PY{n+nf}{knn\PYZus{}array}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{u}\PY{p}{)}\PY{p}{:}
+             \PY{n}{R} \PY{o}{=} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{a} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{knnf}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{u}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{knn}\PY{p}{(}\PY{n}{u}\PY{p}{,}\PY{n}{f}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+             \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+             \PY{n}{b}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{u}\PY{p}{)}
+             \PY{n}{RC} \PY{o}{=} \PY{n}{R}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{R}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{]}
+             \PY{n}{RT} \PY{o}{=} \PY{n}{R}\PY{o}{.}\PY{n}{T}
+             \PY{n}{RT} \PY{o}{=} \PY{n}{RT}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{RT}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{]}
+             \PY{n}{RO} \PY{o}{=} \PY{n}{RC}\PY{p}{[}\PY{n}{RT}\PY{o}{.}\PY{n}{index}\PY{p}{]}
+             \PY{n}{R} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{RO}\PY{p}{)}
+             \PY{k}{return} \PY{n}{R}\PY{p}{,}\PY{n}{RO}
+\end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  Example User -6 and food -19
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{R}\PY{p}{,}\PY{n}{RO}\PY{o}{=}\PY{n}{knn\PYZus{}array}\PY{p}{(}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}
+         \PY{n}{RO}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} food\_id  9   11  15  18  19  21  27  34
+         user\_id                                
+         18        9   0   7   9   7   0   0   0
+         20        4   0   5   4   3   0   0   0
+         40        0   0   7   0   7   0   0   0
+         64       10   6  10   9   0   6   3   8
+         80       10   0  10  10  10   0   0   0
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}
+         \PY{k}{def} \PY{n+nf}{matrix\PYZus{}factorization}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{f}\PY{p}{,} \PY{n}{steps}\PY{o}{=}\PY{l+m+mi}{3500}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0003}\PY{p}{,} \PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.02}\PY{p}{)}\PY{p}{:}
+             \PY{n}{R}\PY{p}{,} \PY{n}{RO} \PY{o}{=} \PY{n}{knn\PYZus{}array}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+             \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{R}\PY{p}{)}
+             \PY{n}{M} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{R}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{K} \PY{o}{=} \PY{l+m+mi}{4}
+             \PY{n}{P} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{K}\PY{p}{)}
+             \PY{n}{Q} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{K}\PY{p}{)}
+             \PY{n}{Q} \PY{o}{=} \PY{n}{Q}\PY{o}{.}\PY{n}{T}
+             \PY{k}{for} \PY{n}{step} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{steps}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{R}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{R}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n}{eij} \PY{o}{=} \PY{n}{R}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{numpy}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{Q}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}
+                             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+                                 \PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{+} \PY{n}{alpha} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{eij} \PY{o}{*} \PY{n}{Q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{beta} \PY{o}{*} \PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}
+                                 \PY{n}{Q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{Q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+} \PY{n}{alpha} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{eij} \PY{o}{*} \PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{beta} \PY{o}{*} \PY{n}{Q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{eR} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{Q}\PY{p}{)}
+                 \PY{n}{e} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{R}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{R}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{R}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n}{e} \PY{o}{=} \PY{n}{e} \PY{o}{+} \PY{n+nb}{pow}\PY{p}{(}\PY{n}{R}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{numpy}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{Q}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+                                 \PY{n}{e} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{beta} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n+nb}{pow}\PY{p}{(}\PY{n}{P}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{n+nb}{pow}\PY{p}{(}\PY{n}{Q}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{e} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.001}\PY{p}{:}
+                     \PY{k}{break}
+             \PY{n}{Rpred} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{Q}\PY{p}{)}
+             \PY{n}{scorepred} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{Rpred}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{RO}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{RO}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{temp}\PY{o}{=}\PY{n}{scorepred}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{u}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{f}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{temp}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                     
+                     \PY{k}{return} \PY{n}{temp}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{f}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{k}{return} \PY{l+m+mf}{5.78}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{matrix\PYZus{}factorization}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{19}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 10.150741312505179
+\end{Verbatim}
+        
+    \begin{itemize}
+\tightlist
+\item
+  real score of user-64 food-19
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{realsurvey\PYZus{}64} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/survey/recfood/ID64.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{realsurvey\PYZus{}64}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{19}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} 10.0
+\end{Verbatim}
+        
+    \subsubsection{Induced Motivation Model (IMM) based on custom
+goal}\label{induced-motivation-model-imm-based-on-custom-goal}
+
+    The health score of food is different for different users and even on
+different days when the aim is to complete a dietary goal or keeping a
+healthy diet. In the process, a user may have a personal goal, such as
+losing two kilograms of weight in 30 days, gaining four kilograms of
+weight in 25 days to train muscles. According to {[}8{]}, the ideal
+perfect model for a user to gradually change their eating diet and
+eating choice, specifically, should first recommend tastier but less
+healthy food to the user, after which it would be possible for them to
+transit to food which is both tasty and healthy. Thus, we use IMM as the
+model of weight in the weighted summation to control the combination of
+tasty and healthy components in order to make user easy to accept. The
+mathematics model we are using here is a logistic model, with slight
+changes to the start and end and with logarithmic growth in the middle
+to satisfy both time efficiency and allow adjustment time for the user
+to adapt. In the evaluation, we use information of a virtual person to
+test whether the system meet the needs. The particular person is a
+normal healthy18 year-old male student with normal activities with an
+initial height of 180 centimeters and an initial weight of 75 kilograms,
+and with the goal of losing two kilograms of weight in 30 days. The
+custom IMM graph is shown in Figure 2:
+
+    
+
+    \subsection{Health score calculation}\label{health-score-calculation}
+
+    \[ H_{u,f}=\sum_{\left(u,f\right)\in }{\frac{h_{f,i}}{h_{u,i}}?a_i}\ \ \left(u,f\in \ L_{{u,P}_f}\right) \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k}{def} \PY{n+nf}{healthscore}\PY{p}{(}\PY{n}{user}\PY{p}{,} \PY{n}{food}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{dif}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{math}\PY{o}{.}\PY{n}{fabs}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{fabs}\PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}} \PY{n}{b}\PY{p}{)} \PY{o}{/} \PY{n}{b}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{ts} \PY{o}{=} \PY{l+m+mi}{1}  \PY{c+c1}{\PYZsh{} control differrent type of food and their percentage of calories of a lunch}
+             \PY{k}{if} \PY{n}{food}\PY{o}{.}\PY{n}{type} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{ts} \PY{o}{=} \PY{l+m+mf}{0.6}
+             \PY{k}{elif} \PY{n}{food}\PY{o}{.}\PY{n}{type} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{ts} \PY{o}{=} \PY{l+m+mf}{0.3}
+             \PY{k}{elif} \PY{n}{food}\PY{o}{.}\PY{n}{type} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{n}{ts} \PY{o}{=} \PY{l+m+mf}{0.3}
+             \PY{k}{elif} \PY{n}{food}\PY{o}{.}\PY{n}{type} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                 \PY{n}{ts} \PY{o}{=} \PY{l+m+mf}{0.2}
+             \PY{k}{elif} \PY{n}{food}\PY{o}{.}\PY{n}{type} \PY{o}{==} \PY{l+m+mi}{5}\PY{p}{:}
+                 \PY{n}{ts} \PY{o}{=} \PY{l+m+mf}{0.1}
+             \PY{n}{basic} \PY{o}{=} \PY{n}{user}\PY{o}{.}\PY{n}{getcalorie}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{ts}
+             \PY{n}{carbs} \PY{o}{=} \PY{n}{ts} \PY{o}{*} \PY{n}{basic} \PY{o}{*} \PY{l+m+mf}{0.45}
+             \PY{n}{fatmin} \PY{o}{=} \PY{n}{basic} \PY{o}{*} \PY{l+m+mf}{0.2} \PY{o}{/} \PY{l+m+mf}{9.0} \PY{o}{*} \PY{n}{ts}
+             \PY{n}{fatmax} \PY{o}{=} \PY{n}{basic} \PY{o}{*} \PY{l+m+mf}{0.35} \PY{o}{/} \PY{l+m+mf}{9.0} \PY{o}{*} \PY{n}{ts}
+             \PY{n}{sodium} \PY{o}{=} \PY{l+m+mi}{2400} \PY{o}{/} \PY{l+m+mf}{3.0} \PY{o}{*} \PY{n}{ts}
+             \PY{k}{if} \PY{n}{user}\PY{o}{.}\PY{n}{age} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{51}\PY{p}{:}
+                 \PY{n}{sodium} \PY{o}{=} \PY{l+m+mi}{1500} \PY{o}{/} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{ts}
+             \PY{n}{protein} \PY{o}{=} \PY{l+m+mf}{0.9} \PY{o}{*} \PY{n}{user}\PY{o}{.}\PY{n}{getweight}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{l+m+mf}{0.5} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{user}\PY{o}{.}\PY{n}{goal} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{1.5}\PY{p}{:}
+                 \PY{n}{protein} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{*} \PY{n}{user}\PY{o}{.}\PY{n}{getweight}\PY{p}{(}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{user}\PY{o}{.}\PY{n}{goal} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1.5}\PY{p}{:}
+                 \PY{n}{protein} \PY{o}{=} \PY{l+m+mf}{2.2} \PY{o}{*} \PY{n}{user}\PY{o}{.}\PY{n}{getweight}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{protein}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{user}\PY{o}{.}\PY{n}{special}\PY{p}{:}
+                 \PY{n}{protein} \PY{o}{=} \PY{n}{user}\PY{o}{.}\PY{n}{special}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{protein}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+             \PY{n}{protein} \PY{o}{/}\PY{o}{=} \PY{l+m+mi}{3}
+             \PY{n}{protein} \PY{o}{*}\PY{o}{=} \PY{n}{ts}
+             \PY{k}{if} \PY{n}{food}\PY{o}{.}\PY{n}{getfat}\PY{p}{(}\PY{p}{)} \PY{o+ow}{in} \PY{p}{[}\PY{n}{fatmin}\PY{p}{,} \PY{n}{fatmax}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{fat} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{fat} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{dif}\PY{p}{(}\PY{n}{food}\PY{o}{.}\PY{n}{getfat}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fatmin}\PY{p}{)}\PY{p}{,} \PY{n}{dif}\PY{p}{(}\PY{n}{food}\PY{o}{.}\PY{n}{getfat}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fatmax}\PY{p}{)}\PY{p}{)}
+             \PY{n}{diff} \PY{o}{=} \PY{n}{dif}\PY{p}{(}\PY{n}{food}\PY{o}{.}\PY{n}{getcal}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{basic}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.5} \PY{o}{+} \PY{n}{dif}\PY{p}{(}\PY{n}{food}\PY{o}{.}\PY{n}{gettotalcarbs}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{carbs}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.1} \PY{o}{+} \PY{n}{dif}\PY{p}{(}\PY{n}{food}\PY{o}{.}\PY{n}{getsodium}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                                                                   \PY{n}{sodium}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.1} \PY{o}{+} \PY{n}{dif}\PY{p}{(}
+                     \PY{n}{food}\PY{o}{.}\PY{n}{getprotein}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{protein}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.1} \PY{o}{+} \PY{n}{fat} \PY{o}{*} \PY{l+m+mf}{0.2}
+             \PY{n}{result} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{l+m+mi}{7} \PY{o}{*} \PY{n}{diff}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{100}
+             \PY{k}{if} \PY{n}{diff} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{0.05}\PY{p}{:}
+                 \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{100}
+             \PY{k}{if} \PY{n}{result} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{40}\PY{p}{:} \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{40}
+         
+             \PY{k}{if} \PY{n}{veg}\PY{p}{(}\PY{n}{user}\PY{p}{,} \PY{n}{food}\PY{p}{)}\PY{p}{:} \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} if vegtarian, test food if veg, ifnot return 0}
+             \PY{k}{return} \PY{n}{result}
+         
+         \PY{k}{def} \PY{n+nf}{veg}\PY{p}{(}\PY{n}{user}\PY{p}{,} \PY{n}{food}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{veg}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{user}\PY{o}{.}\PY{n}{special}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{food}\PY{o}{.}\PY{n}{getspecial}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{veg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{True}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{False}
+         \PY{k}{def} \PY{n+nf}{health}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{} input p user\PYZus{}id list}
+                 \PY{n}{user} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{food} \PY{o}{=} \PY{n}{fooddata}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{healthcsv} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{p}\PY{p}{:}
+                     \PY{n}{user}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{userselect}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{user}\PY{p}{:}
+                        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{food}\PY{p}{:}
+                             \PY{k}{if} \PY{n}{j}\PY{o}{.}\PY{n}{foodid} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{healthcsv}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                                 \PY{n}{healthcsv}\PY{p}{[}\PY{n}{j}\PY{o}{.}\PY{n}{foodid}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+                             \PY{n}{score} \PY{o}{=} \PY{n}{healthscore}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}
+                             \PY{n}{healthcsv}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{o}{.}\PY{n}{id}\PY{p}{,} \PY{n}{j}\PY{o}{.}\PY{n}{foodid}\PY{p}{]} \PY{o}{=} \PY{n}{score}
+                 \PY{n}{healthcsv} \PY{o}{=} \PY{n}{healthcsv}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{healthcsv}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{\PYZus{}health}\PY{o}{=}\PY{n}{health}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{183}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{\PYZus{}health}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:}         1       3    4    5    6    7    8       9    10      11    {\ldots}    \textbackslash{}
+         183  9.1476  9.1117    4    4    4    4    4  8.9055    4  7.9836   {\ldots}     
+         
+                 63      64      65      66   67   68      69      70      100     101  
+         183  8.7119  8.7541  7.6183  8.4282    4    4  6.4836  4.2268  8.1613  8.1613  
+         
+         [1 rows x 66 columns]
+\end{Verbatim}
+        
+    \subsection{Evaluation}\label{evaluation}
+
+\subsubsection{Next two algorithms will cause some error so I need to
+build test \& train files and evaluation function to
+test}\label{next-two-algorithms-will-cause-some-error-so-i-need-to-build-test-train-files-and-evaluation-function-to-test}
+
+\begin{itemize}
+\tightlist
+\item
+  There are few useable open-source large-scale datasets on food
+  ratings; therefore, a three-week track lunch survey was sent out on
+  school days. A survey listing all the courses served in the cafeteria
+  was distributed online as a Google form. The survey reviewed
+  participants' opinions based only on the taste of the foods they ate
+  for lunch during the specified period expressed as a score ranging
+  from 1 to 10.
+\item
+  The resulting matrix generated from the track survey contains
+  responses from 186 people and pertains to 64 courses of food. The
+  respondents consist of 165 students aging from 15 to 18 and 21 adult
+  teachers; thus, the matrix has a size of \((186 \times 64)\). Matrix A
+  contained a total of 1235 entries. The system was evaluated by
+  randomly dividing the original Matrix A into \(Matrix A_{Training}\)
+  and \(Set S_{Test}\). The size of \$Matrix A\_\{Training\} \$ is
+  \((555\times3)\) and the cardinality of the Set test is 212. All of
+  the entries were useable and valuable ranging from 1 to 10 as
+  integers.
+\end{itemize}
+
+    \paragraph{Create train \& test files}\label{create-train-test-files}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{gene\PYZus{}test\PYZus{}train}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{scorecsv} \PY{o}{=} \PY{n}{scoredata}\PY{p}{(}\PY{p}{)}
+            \PY{n}{scorecsv} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{scorecsv}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{800}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{]}
+            \PY{n}{user\PYZus{}ids\PYZus{}larger\PYZus{}1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{scorecsv}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{p}{,} \PY{n}{sort}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}
+            \PY{n}{user\PYZus{}ids\PYZus{}larger\PYZus{}1} \PY{o}{=} \PY{n}{user\PYZus{}ids\PYZus{}larger\PYZus{}1}\PY{p}{[}\PY{n}{user\PYZus{}ids\PYZus{}larger\PYZus{}1}\PY{p}{]}\PY{o}{.}\PY{n}{index}
+        
+            \PY{n}{scorecsv} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{k}{lambda} \PY{n}{l}\PY{p}{:} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{l}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{in} \PY{n}{user\PYZus{}ids\PYZus{}larger\PYZus{}1}\PY{p}{)}
+            \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{n}{scorecsv}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{assign\PYZus{}to\PYZus{}set}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+                \PY{n}{sampled\PYZus{}ids} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+                                               \PY{n}{size}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int64}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{size} \PY{o}{*} \PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                               \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n}{df}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{n}{sampled\PYZus{}ids}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{for\PYZus{}testing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+                \PY{k}{return} \PY{n}{df}
+        
+            \PY{n}{scorecsv}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{for\PYZus{}testing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+            \PY{n}{grouped} \PY{o}{=} \PY{n}{scorecsv}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{group\PYZus{}keys}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{assign\PYZus{}to\PYZus{}set}\PY{p}{)}
+            \PY{n}{scorecsv\PYZus{}train} \PY{o}{=} \PY{n}{scorecsv}\PY{p}{[}\PY{n}{grouped}\PY{o}{.}\PY{n}{for\PYZus{}testing} \PY{o}{==} \PY{k+kc}{False}\PY{p}{]}
+            \PY{n}{scorecsv\PYZus{}test} \PY{o}{=} \PY{n}{scorecsv}\PY{p}{[}\PY{n}{grouped}\PY{o}{.}\PY{n}{for\PYZus{}testing} \PY{o}{==} \PY{k+kc}{True}\PY{p}{]}
+            \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{scorecsv\PYZus{}train}\PY{o}{.}\PY{n}{index} \PY{o}{\PYZam{}} \PY{n}{scorecsv\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}
+            \PY{n}{scorecsv\PYZus{}train}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/test\PYZus{}score/scorecsv\PYZus{}train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{scorecsv\PYZus{}test}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/test\PYZus{}score/scorecsv\PYZus{}test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{gene\PYZus{}test\PYZus{}train}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{scorecsv\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/test\PYZus{}score/scorecsv\PYZus{}train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{scorecsv\PYZus{}test}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:/project/main/DRS/DRS/data/test\PYZus{}score/scorecsv\PYZus{}test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{scorecsv\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:}       food\_id  rating  user\_id for\_testing
+         1200        1       5       57       False
+         603        63       9      163       False
+         332        10       8       62       False
+         1123        3       8       59       False
+         1064       11       8      131       False
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{scorecsv\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:}       food\_id  rating  user\_id for\_testing
+         565        19       4       14       False
+         545        48       9       99       False
+         372        16       1       18       False
+         55         38       7      147       False
+         1316        1       1      132       False
+\end{Verbatim}
+        
+    \subsubsection{Evaluation:}\label{evaluation}
+
+\begin{itemize}
+\tightlist
+\item
+  RMSE: \(\sqrt{\frac{\sum(\hat y - y)^2}{n}}\)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{def} \PY{n+nf}{compute\PYZus{}rmse}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}true}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Compute Root Mean Squared Error. \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{y\PYZus{}pred} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}data}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E:/project/main/DRS/DRS/data/test\PYZus{}score/scorecsv\PYZus{}train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{E:/project/main/DRS/DRS/data/test\PYZus{}score/scorecsv\PYZus{}test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{train}\PY{p}{,} \PY{n}{test}
+         
+         \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n}{estimate\PYZus{}f}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} RMSE\PYZhy{}based predictive performance evaluation with pandas. \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{scorecsv\PYZus{}train}\PY{p}{,} \PY{n}{scorecsv\PYZus{}test} \PY{o}{=} \PY{n}{evaluate\PYZus{}data}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ids\PYZus{}to\PYZus{}estimate} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{scorecsv\PYZus{}test}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{p}{,} \PY{n}{scorecsv\PYZus{}test}\PY{o}{.}\PY{n}{food\PYZus{}id}\PY{p}{)}
+             \PY{n}{estimated} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{estimate\PYZus{}f}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{i}\PY{p}{)} \PY{o+ow}{in} \PY{n}{ids\PYZus{}to\PYZus{}estimate}\PY{p}{]}\PY{p}{)}
+             \PY{n}{real} \PY{o}{=} \PY{n}{scorecsv\PYZus{}test}\PY{o}{.}\PY{n}{rating}\PY{o}{.}\PY{n}{values}
+             \PY{k}{return} \PY{n}{compute\PYZus{}rmse}\PY{p}{(}\PY{n}{estimated}\PY{p}{,} \PY{n}{real}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{Evaluation Result}\label{evaluation-result}
+
+    \subsubsection{naive program (using average
+score)}\label{naive-program-using-average-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k}{def} \PY{n+nf}{naive}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mf}{5.798}
+         \PY{n}{evaluate}\PY{p}{(}\PY{n}{naive}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} 3.0204758775525073
+\end{Verbatim}
+        
+    \subsubsection{pure KNN method}\label{pure-knn-method}
+
+    Euclidean
+
+Cosine
+
+Pearson
+
+RMSE-Using training dataset
+
+2.46493
+
+2.49006
+
+2.54757
+
+RMSE-Using whole dataset
+
+1.85630
+
+2.28051
+
+1.80219
+
+     Figure 3 Cross Validation from KNN Algorithm
+
+    \subsubsection{Regular LFM Algorithm}\label{regular-lfm-algorithm}
+
+    \begin{itemize}
+\tightlist
+\item
+  When Step=3500,α=0.0003 and β=0.02,RMSE = 1.00169
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Best Time of Three is 5 min 30 s
+\end{itemize}
+
+    \subsubsection{Modified LFM Algorithm ( Hybrid method with
+KNN)}\label{modified-lfm-algorithm-hybrid-method-with-knn}
+
+    \paragraph{Test RMSE in different cost function
+components}\label{test-rmse-in-different-cost-function-components}
+
+     Figure 3 Cross Validation for LFM algorithm: Steps are ranged from 3000
+to 7000
+
+     Figure 4 Cross Validation for LFM algorithm: α is ranging from 0.0001
+to 0.001
+
+     Figure 5 Cross Validation for LFM algorithm: β is ranging from 0.01 to
+0.1
+
+    \begin{itemize}
+\tightlist
+\item
+  best time of three is 13.1 seconds
+\end{itemize}
+
+    \subsubsection{Health}\label{health}
+
+    The virtual user we created to represent normal health conditions is an
+18 year-old male student with normal activities and with an initial
+height of 180 centimeters and an initial weight 75 kilograms. The goal
+that was specified for weight loss was 2kilograms in 30 days; thus, his
+BMR was about 1860.55 and the daily calories needed to satisfy the goal
+were about 2435 calories per day for about 1000 calories permitted for
+lunch. In the list of recommended foods, 86.67\% of the food was found
+to satisfy the user's needs.
+
+    \subsection{Real test result}\label{real-test-result}
+
+    This study used a post-survey to receive feedback about the accuracy of
+the prediction. In the post-survey, the system generated six recommended
+foods and randomly select six foods from food list. Mixing the order of
+the total 12 foods, the survey is a blind test in order to make sure
+people answer this survey without personal influences. There are total
+376 foods' rating received. Among 376 foods, 188 foods are from
+recommended food list with 63.3\% accuracy predicting user's attitude on
+foods. The average rating for recommended foods is {7.87234}, while the
+average ranting for random foods is {4.49468}. It clearly shows more
+foods in the recommended food list are tasty for users.
+
+    \subsection{REFFERENCES}\label{refferences}
+
+\begin{itemize}
+\tightlist
+\item
+  {[}1{]} Gunawardana, A., \& Shani, G. (2015). Evaluating Recommender
+  Systems. Recommender Systems Handbook, 265-308.
+\item
+  {[}2{]} Neumann, S., Thum, A., \& Böttcher, C. (2012). Nearline
+  acquisition and processing of liquid chromatography-tandem mass
+  spectrometry data. Metabolomics, 9(S1), 84-91.
+\item
+  {[}3{]} Sarwar, B., Karypis, G., Konstan, J., \& Reidl, J. (2001).
+  Item-based collaborative filtering recommendation algorithms.
+  Proceedings of the Tenth International Conference on World Wide Web -
+  WWW '01.
+\item
+  {[}4{]} Matrix Factorization: A Simple Tutorial and Implementation in
+  Python. (n.d.). Retrieved Jan, 2016, from
+  http://www.quuxlabs.com/blog/2010/09/matrix-factorization-a-simple-tutorial-and-implementation-in-python/
+\item
+  {[}5{]} Schelter, S., Boden, C., \& Markl, V. (2012). Scalable
+  similarity-based neighborhood methods with MapReduce. Proceedings of
+  the Sixth ACM Conference on Recommender Systems - RecSys '12.
+\item
+  {[}6{]} Ryza, S., Laserson, U., Owen, S., \& Wills, J. (2015).
+  Advanced analytics with Spark. Sebastopol, CA: O'Reilly Media.
+\item
+  {[}7{]} Takács, G., Pilászy, I., Németh, B., \& Tikk, D. (2008).
+  Matrix factorization and neighbor based algorithms for the netflix
+  prize problem. Proceedings of the 2008 ACM Conference on Recommender
+  Systems - RecSys '08.
+\item
+  {[}8{]} Miller, Neal E. ``Motivation and Psychological Stress.'' The
+  Physiological Mechanisms of Motivation (1982): 409-32. Web.
+\item
+  {[}9{]} Stephen, Farenga, J., and Ness Daniel. ``Calories, Energy, and
+  the Food You Eat.'' Questia. Web. Feb. 2016.
+  \url{https://www.questia.com/article/1G1-143734185/calories-energy-and-the-food-you-eat}.
+\item
+  {[}10{]} ``Nonessential Nitrogen Supplements And Essential Amino Acid
+  Requirements.'' Nutrition Reviews 21.6 (2009): 183-84. Web.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
